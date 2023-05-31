@@ -3,10 +3,12 @@ import 'package:flash_chat/constants.dart';
 import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flash_chat/screens/padding_button.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
+
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -25,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -34,13 +36,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   Flexible(
                     child: Hero(
                       tag: 'logo',
-                      child: Container(
+                      child: SizedBox(
                         height: 200.0,
                         child: Image.asset('images/logo.png'),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 48.0,
                   ),
                   TextField(
@@ -54,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       hintText: 'Enter your e-mail',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8.0,
                   ),
                   TextField(
@@ -68,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       hintText: 'Enter your password',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 24.0,
                   ),
                   PaddingButton(
@@ -92,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         return showDialog(
                           context: context,
                           builder: (ctx) => AlertDialog(
-                            title: Text('An error occured!'),
+                            title: const Text('An error occured!'),
                             content: Text(e.message.toString()),
                             actions: [
                               TextButton(
@@ -102,12 +104,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   });
                                   Navigator.of(ctx).pop();
                                 },
-                                child: Text('Okay'),
+                                child: const Text('Okay'),
                               ),
                             ],
                           ),
                         );
                       }
+                      Navigator.pushNamed(context, ChatScreen.id);
                     },
                   )
                 ],

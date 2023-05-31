@@ -6,12 +6,12 @@ class PaddingButton extends StatelessWidget {
   final Function() func;
 
   const PaddingButton(
-      {required this.text, required this.colr, required this.func});
+      {super.key, required this.text, required this.colr, required this.func});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: 16.0,
       ),
       child: Material(
@@ -26,8 +26,8 @@ class PaddingButton extends StatelessWidget {
           minWidth: 200.0,
           height: 42.0,
           child: Text(
-            '$text',
-            style: TextStyle(
+            text,
+            style: const TextStyle(
               color: Colors.white,
             ),
           ),

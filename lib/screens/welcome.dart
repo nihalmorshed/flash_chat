@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
 
+  const WelcomeScreen({super.key});
+
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
@@ -19,7 +21,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: Duration(
+      duration: const Duration(
         seconds: 5,
       ),
       vsync: this,
@@ -56,20 +58,20 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               children: [
                 Hero(
                   tag: 'logo',
-                  child: Container(
-                    child: Image.asset('images/logo.png'),
+                  child: SizedBox(
                     height: 60,
+                    child: Image.asset('images/logo.png'),
                   ),
                 ),
                 AnimatedTextKit(
                   animatedTexts: [
                     TypewriterAnimatedText(
                       'Flash Chat',
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontSize: 45,
                         fontWeight: FontWeight.w900,
                       ),
-                      speed: Duration(
+                      speed: const Duration(
                         milliseconds: 70,
                       ),
                     )
@@ -78,7 +80,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 48.0,
             ),
             PaddingButton(
