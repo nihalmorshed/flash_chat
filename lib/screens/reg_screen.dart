@@ -3,12 +3,10 @@ import 'package:flash_chat/constants.dart';
 import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flash_chat/screens/padding_button.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const id = 'registration_screen';
-
-  const RegistrationScreen({super.key});
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
@@ -24,11 +22,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+        backgroundColor: Color.fromRGBO(255, 255, 255, 1),
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
           child: Padding(
-            padding: const EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
               horizontal: 24.0,
             ),
             child: Center(
@@ -39,13 +37,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   Flexible(
                     child: Hero(
                       tag: 'logo',
-                      child: SizedBox(
+                      child: Container(
                         height: 200.0,
                         child: Image.asset('images/logo.png'),
                       ),
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 48.0,
                   ),
                   TextField(
@@ -59,7 +57,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       hintText: "Enter Your E-Mail",
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 8.0,
                   ),
                   TextField(
@@ -73,7 +71,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       hintText: "Enter Your Password",
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 24.0,
                   ),
                   PaddingButton(
@@ -92,12 +90,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         setState(() {
                           showSpinner = false;
                         });
-                        Navigator.pushNamed(context, ChatScreen.id);
+                        if (newUser != null) {
+                          Navigator.pushNamed(context, ChatScreen.id);
+                        }
                       } on FirebaseAuthException catch (e) {
                         return showDialog(
                           context: context,
                           builder: (ctx) => AlertDialog(
-                            title: const Text('An error occured!'),
+                            title: Text('An error occured!'),
                             content: Text(e.message.toString()),
                             actions: [
                               TextButton(
@@ -107,13 +107,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   });
                                   Navigator.of(ctx).pop();
                                 },
-                                child: const Text('Okay'),
+                                child: Text('Okay'),
                               ),
                             ],
                           ),
                         );
                       }
-                      Navigator.pushNamed(context, ChatScreen.id);
                     },
                   ),
                 ],

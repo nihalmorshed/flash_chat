@@ -9,8 +9,6 @@ final _firestore = FirebaseFirestore.instance;
 
 class ChatScreen extends StatefulWidget {
   static const id = 'chat_screen';
-
-  const ChatScreen({super.key});
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
@@ -60,7 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
         leading: null,
         actions: [
           IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.logout_rounded,
               ),
               onPressed: () async {
@@ -69,7 +67,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 Navigator.pop(context);
               }),
         ],
-        title: const Text('⚡️Chat'),
+        title: Text('⚡️Chat'),
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
@@ -99,7 +97,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Implement send functionality.
+                      //Implement send functionality.
                       _firestore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser.email,
@@ -108,11 +106,11 @@ class _ChatScreenState extends State<ChatScreen> {
                       messageController.clear();
                       scrollController.animateTo(
                         scrollController.position.maxScrollExtent + 70.0,
-                        duration: const Duration(milliseconds: 700),
+                        duration: Duration(milliseconds: 700),
                         curve: Curves.easeOut,
                       );
                     },
-                    child: const Text(
+                    child: Text(
                       'Send',
                       style: kSendButtonTextStyle,
                     ),
@@ -128,7 +126,7 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 class MessageStream extends StatelessWidget {
-  const MessageStream({super.key, required this.firestore, required this.scrollController});
+  MessageStream({required this.firestore, required this.scrollController});
 
   final FirebaseFirestore firestore;
   final ScrollController scrollController;
@@ -142,7 +140,7 @@ class MessageStream extends StatelessWidget {
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Center(
+          return Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -161,7 +159,7 @@ class MessageStream extends StatelessWidget {
           child: ListView(
             reverse: true,
             controller: scrollController,
-            padding: const EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
               horizontal: 10.0,
               vertical: 20.0,
             ),
@@ -176,7 +174,7 @@ class MessageStream extends StatelessWidget {
 class MessageBubble extends StatelessWidget {
   final String text;
   final String sender;
-  const MessageBubble({super.key, required this.text, required this.sender});
+  MessageBubble({required this.text, required this.sender});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -188,12 +186,12 @@ class MessageBubble extends StatelessWidget {
         children: [
           Text(
             sender.substring(0, sender.indexOf('@')),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12.0,
               color: Colors.black54,
             ),
           ),
-          const SizedBox(
+          SizedBox(
             height: 5.0,
           ),
           Material(
@@ -210,7 +208,7 @@ class MessageBubble extends StatelessWidget {
               ),
               child: Text(
                 text,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15.0,
                   color: Colors.white,
                 ),
