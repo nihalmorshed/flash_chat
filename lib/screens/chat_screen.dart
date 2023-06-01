@@ -9,6 +9,8 @@ final _firestore = FirebaseFirestore.instance;
 
 class ChatScreen extends StatefulWidget {
   static const id = 'chat_screen';
+
+  const ChatScreen({super.key});
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
@@ -58,17 +60,16 @@ class _ChatScreenState extends State<ChatScreen> {
         leading: null,
         actions: [
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.logout_rounded,
               ),
               onPressed: () async {
                 //Implement logout functionality
                 await _auth.signOut();
-                Navigator.of(context).pop();
-                // Navigator.pop(context);
+                Navigator.pop(context);
               }),
         ],
-        title: Text('⚡️Chat'),
+        title: const Text('⚡️Chat'),
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
@@ -98,7 +99,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      //Implement send functionality.
+                      // Implement send functionality.
                       _firestore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser.email,
@@ -107,11 +108,11 @@ class _ChatScreenState extends State<ChatScreen> {
                       messageController.clear();
                       scrollController.animateTo(
                         scrollController.position.maxScrollExtent + 70.0,
-                        duration: Duration(milliseconds: 700),
+                        duration: const Duration(milliseconds: 700),
                         curve: Curves.easeOut,
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'Send',
                       style: kSendButtonTextStyle,
                     ),
@@ -127,7 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 class MessageStream extends StatelessWidget {
-  MessageStream({required this.firestore, required this.scrollController});
+  const MessageStream({super.key, required this.firestore, required this.scrollController});
 
   final FirebaseFirestore firestore;
   final ScrollController scrollController;
@@ -141,7 +142,7 @@ class MessageStream extends StatelessWidget {
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -160,7 +161,7 @@ class MessageStream extends StatelessWidget {
           child: ListView(
             reverse: true,
             controller: scrollController,
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 10.0,
               vertical: 20.0,
             ),
@@ -175,7 +176,7 @@ class MessageStream extends StatelessWidget {
 class MessageBubble extends StatelessWidget {
   final String text;
   final String sender;
-  MessageBubble({required this.text, required this.sender});
+  const MessageBubble({super.key, required this.text, required this.sender});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -187,12 +188,12 @@ class MessageBubble extends StatelessWidget {
         children: [
           Text(
             sender.substring(0, sender.indexOf('@')),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12.0,
               color: Colors.black54,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5.0,
           ),
           Material(
@@ -209,7 +210,7 @@ class MessageBubble extends StatelessWidget {
               ),
               child: Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15.0,
                   color: Colors.white,
                 ),
